@@ -1,9 +1,8 @@
 import TagList from '../components/ui/TagList';
-import PortraitButton from '../components/ui/PortraitButton';
 import { skillGroups } from '../data/profile';
 import { Download } from 'lucide-react';
 import ContactBanner from '../components/sections/ContactBanner';
-import { resumeUrl } from '../data/site';
+import { portraitUrl, resumeUrl } from '../data/site';
 
 export default function AboutPage() {
   return (
@@ -17,7 +16,13 @@ export default function AboutPage() {
             <span className="serif">A curious spirit.</span>
           </h1>
           <figure className="about-portrait">
-            <PortraitButton variant="profile" />
+            <img
+              src={portraitUrl}
+              alt="Ronnie Galindo in a modern office"
+              width={1672}
+              height={941}
+              decoding="async"
+            />
             <figcaption>KELLER, TEXAS</figcaption>
           </figure>
         </div>

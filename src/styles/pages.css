@@ -127,9 +127,9 @@
   color: var(--lime);
 }
 .about-heading {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: 40px;
 }
 .about-portrait {
@@ -138,10 +138,16 @@
   gap: 18px;
   margin: 0;
   flex-shrink: 0;
+  width: min(88%, 480px);
+  justify-self: center;
 }
-.about-portrait .portrait-avatar {
-  width: 220px;
-  height: 220px;
+.about-portrait > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1672 / 941;
+  border-radius: 12px;
+  object-fit: contain;
 }
 .about-portrait figcaption {
   font-size: 11px;

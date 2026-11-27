@@ -48,8 +48,15 @@ export default function PortraitModal({ onClose, returnFocusRef }: PortraitModal
       <div className="portrait-modal-content">
         <div className="portrait-modal-header">
           <h2 id={titleId}>Ronnie Galindo</h2>
-          <button type="button" className="portrait-modal-cancel" onClick={onClose} autoFocus>
-            <X size={17} aria-hidden="true" /> Cancel
+          <button
+            type="button"
+            className="portrait-modal-cancel"
+            aria-label="Close image"
+            title="Close image"
+            onClick={onClose}
+            autoFocus
+          >
+            <X size={20} aria-hidden="true" />
           </button>
         </div>
         <img

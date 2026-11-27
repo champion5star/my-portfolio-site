@@ -299,17 +299,14 @@
     font-size: 30px;
   }
   .about-heading {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     align-items: start;
     gap: 25px;
   }
   .about-portrait {
     align-self: center;
     margin-top: 10px;
-  }
-  .about-portrait .portrait-avatar {
-    width: 180px;
-    height: 180px;
+    width: min(100%, 480px);
   }
   .about-body {
     grid-template-columns: 1fr;
