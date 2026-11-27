@@ -3,3 +3,4 @@ dist
 outputs
 tmp
 package-lock.json
+coverage

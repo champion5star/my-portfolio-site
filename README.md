@@ -28,11 +28,11 @@ Open http://localhost:8080. The multi-stage Docker image builds the app and serv
 
 ## GitHub Pages
 
-The workflow in `.github/workflows/deploy.yml` builds and deploys on pushes to `main`, or manually from the Actions tab.
+The workflow in `.github/workflows/deploy.yml` runs quality checks on every branch push, pull requests targeting `main`, and manual runs. Only successful checks on `main` can proceed to GitHub Pages packaging and deployment. Feature branches such as `update-1` and pull requests run checks without publishing.
 
 1. Push this project to `https://github.com/champion5star/my-portfolio-site`.
 2. In the repository, open **Settings → Pages** and select **GitHub Actions** as the source.
-3. Open **Actions → Deploy portfolio to GitHub Pages → Run workflow** if the first push happened before Pages was enabled.
+3. Open **Actions → Portfolio CI and GitHub Pages → Run workflow**, selecting `main`, if the first push happened before Pages was enabled.
 4. Use the website URL shown by the successful deployment.
 
 The expected URL for this repository is `https://champion5star.github.io/my-portfolio-site/`. The workflow discovers the configured Pages base path, so assets and resume downloads work under the repository path. GitHub Pages builds use hash routing (for example, `/#/contact`) so page refreshes and direct links work without server rewrite rules. Local, Docker, and Sites builds retain normal URL paths.
@@ -47,6 +47,25 @@ npm run preview
 ```
 
 Clear those two variables before a normal root-path build. GitHub Pages serves the built static files; the Docker image is for hosting elsewhere. The FormSubmit contact form works independently of the host; submit once from the new live domain and complete any activation requested by FormSubmit.
+
+## Automated tests and CI/CD
+
+The test suite uses Vitest, React Testing Library, and JSDOM. Tests are colocated with the components and pages they exercise; shared setup and rendering helpers live in `src/test/`. `vitest.config.ts` controls test environments and coverage thresholds.
+
+```sh
+npm test                # Run tests once in browser-routing mode
+npm run test:watch      # Run tests interactively while editing
+npm run test:coverage   # Run tests and produce coverage reports
+npm run test:pages      # Run the suite with hash routing and a repository base path
+npm run test:ci         # Run coverage checks and both routing modes
+npm run typecheck      # Check TypeScript, including test files
+```
+
+The tests cover all page routes and project detail routes, missing-page recovery, navigation state, skip navigation, category and text filtering, reset behavior, contact-form validation and submission state, visitor return from the delivery provider, direct route loading, and resume paths. Native form navigation is intercepted by the tests: no messages are sent to FormSubmit or email recipients. Inbox delivery and CAPTCHA completion require a separate manual check after activation.
+
+CI checks formatting, TypeScript, both test modes, coverage thresholds, and production builds for both hosting modes. The coverage report is available as a `coverage-report` artifact for 14 days, and locally at `coverage/index.html`. Minimum coverage is 80% for lines and statements and 75% for functions and branches; falling below a threshold fails CI.
+
+The deployment jobs depend on passing quality checks. They discover the configured Pages base path, build the site, upload the `dist` artifact, and publish it using the built-in GitHub token. No personal access token or email credentials are needed in repository secrets. The deploy job alone receives Pages write and OIDC permissions. Configure **Settings → Pages → Source → GitHub Actions** once in GitHub. To prevent merging failing code, add the **Quality checks** status as a required check in the repository’s branch rules.
 
 ## Content
 
