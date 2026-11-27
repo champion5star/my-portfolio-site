@@ -59,6 +59,7 @@
   touch-action: pan-y;
   cursor: grab;
   user-select: none;
+  outline: none;
 }
 .ai-globe-scene:active {
   cursor: grabbing;
