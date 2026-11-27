@@ -30,7 +30,7 @@ function renderLogo(showName = true) {
 }
 
 describe('portrait logo and full-image modal', () => {
-  it('opens and closes the same portrait modal from the About-page photo', async () => {
+  it('shows the About-page photo as a noninteractive image', async () => {
     const user = userEvent.setup();
     render(
       <StrictMode>
@@ -40,19 +40,19 @@ describe('portrait logo and full-image modal', () => {
       </StrictMode>,
     );
     expect(screen.queryByText(/^rg$/i)).not.toBeInTheDocument();
-    const portrait = screen.getByRole('button', { name: 'View Ronnie Galindo’s full portrait' });
-    expect(portrait).toHaveClass('portrait-avatar');
+    const portrait = screen.getByRole('img', { name: 'Ronnie Galindo in a modern office' });
+    expect(portrait.closest('button, a')).toBeNull();
+    expect(
+      screen.queryByRole('button', { name: 'View Ronnie Galindo’s full portrait' }),
+    ).not.toBeInTheDocument();
     await user.click(portrait);
-    const dialog = screen.getByRole('dialog', { name: 'Ronnie Galindo' });
-    expect(within(dialog).getByRole('img')).toHaveAttribute(
+    expect(portrait).toHaveAttribute(
       'src',
       `${import.meta.env.BASE_URL}images/ronnie-office-portrait.png`,
     );
-    await user.click(within(dialog).getByRole('button', { name: 'Cancel' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    expect(portrait).toHaveFocus();
   });
-  it('opens the full image and restores focus and scrolling after Cancel', async () => {
+  it('opens the full image and restores focus and scrolling after closing', async () => {
     const user = userEvent.setup();
     renderLogo();
     const trigger = screen.getByRole('button', { name: 'View Ronnie Galindo’s full portrait' });
@@ -64,7 +64,7 @@ describe('portrait logo and full-image modal', () => {
       `${import.meta.env.BASE_URL}images/ronnie-office-portrait.png`,
     );
     expect(document.body.style.overflow).toBe('hidden');
-    await user.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+    await user.click(within(dialog).getByRole('button', { name: 'Close image' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(document.body.style.overflow).toBe('');
     expect(trigger).toHaveFocus();
