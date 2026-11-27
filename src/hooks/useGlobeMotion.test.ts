@@ -1,4 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
+import { useLayoutEffect } from 'react';
+import type { ReactNode } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import useGlobeMotion from './useGlobeMotion';
 
@@ -114,5 +116,70 @@ describe('globe animation lifecycle', () => {
     vi.spyOn(document, 'hidden', 'get').mockReturnValue(false);
     act(() => document.dispatchEvent(new Event('visibilitychange')));
     expect(result.current.playing).toBe(true);
+  });
+
+  it('starts on the first visit if the tab becomes visible before effects subscribe', () => {
+    let hidden = true;
+    vi.spyOn(document, 'hidden', 'get').mockImplementation(() => hidden);
+    const { result } = renderHook(useGlobeMotion, {
+      wrapper: function ActivateTab({ children }: { children: ReactNode }) {
+        useLayoutEffect(() => {
+          hidden = false;
+        }, []);
+        return children;
+      },
+    });
+    expect(result.current.playing).toBe(true);
+    advanceFrame(100);
+    advanceFrame(160);
+    expect(result.current.frame.rotation).toBeGreaterThan(-15);
+  });
+
+  it.each(['pageshow', 'focus', 'prerenderingchange'])(
+    'resynchronizes visibility on %s without a refresh',
+    (eventName) => {
+      let hidden = true;
+      vi.spyOn(document, 'hidden', 'get').mockImplementation(() => hidden);
+      const { result } = renderHook(useGlobeMotion);
+      expect(result.current.playing).toBe(false);
+      expect(pending.size).toBe(0);
+      hidden = false;
+      act(() => {
+        const target = eventName === 'prerenderingchange' ? document : window;
+        target.dispatchEvent(new Event(eventName));
+      });
+      expect(result.current.playing).toBe(true);
+      advanceFrame(100);
+      advanceFrame(160);
+      expect(result.current.frame.rotation).toBeGreaterThan(-15);
+    },
+  );
+
+  it('preserves manual pause and reduced motion when a page is activated', () => {
+    const { result } = renderHook(useGlobeMotion);
+    act(() => result.current.setPaused(true));
+    act(() => window.dispatchEvent(new Event('pageshow')));
+    expect(result.current.playing).toBe(false);
+    expect(result.current.paused).toBe(true);
+    act(() => {
+      Object.defineProperty(preference, 'matches', { value: true, configurable: true });
+      mediaChange();
+      result.current.setPaused(false);
+      window.dispatchEvent(new Event('focus'));
+    });
+    expect(result.current.reducedMotion).toBe(true);
+    expect(result.current.playing).toBe(false);
+    expect(pending.size).toBe(0);
+  });
+
+  it('does not restart after its component has unmounted', () => {
+    const { unmount } = renderHook(useGlobeMotion);
+    unmount();
+    act(() => {
+      window.dispatchEvent(new Event('pageshow'));
+      window.dispatchEvent(new Event('focus'));
+      document.dispatchEvent(new Event('prerenderingchange'));
+    });
+    expect(pending.size).toBe(0);
   });
 });

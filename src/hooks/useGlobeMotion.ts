@@ -6,7 +6,7 @@ export default function useGlobeMotion() {
   const [dragging, setDragging] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [pageVisible, setPageVisible] = useState(!document.hidden);
+  const [pageVisible, setPageVisible] = useState(() => !document.hidden);
   const [frame, setFrame] = useState({ rotation: -15, time: 0 });
 
   useEffect(() => {
@@ -22,9 +22,19 @@ export default function useGlobeMotion() {
     if (containerRef.current) observer.observe(containerRef.current);
     const updateVisibility = () => setPageVisible(!document.hidden);
     document.addEventListener('visibilitychange', updateVisibility);
+    document.addEventListener('prerenderingchange', updateVisibility);
+    window.addEventListener('pageshow', updateVisibility);
+    window.addEventListener('focus', updateVisibility);
+
+    // The tab may have been activated between render and effect subscription.
+    // Read its current state after subscribing rather than waiting for another event.
+    updateVisibility();
     return () => {
       observer.disconnect();
       document.removeEventListener('visibilitychange', updateVisibility);
+      document.removeEventListener('prerenderingchange', updateVisibility);
+      window.removeEventListener('pageshow', updateVisibility);
+      window.removeEventListener('focus', updateVisibility);
     };
   }, []);
 
