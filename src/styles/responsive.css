@@ -13,9 +13,14 @@
   }
   .header {
     margin: 0 36px;
+    gap: 24px;
   }
   .logo-name {
-    display: none;
+    font-size: 22px;
+    margin-left: 14px;
+  }
+  .nav {
+    gap: 20px;
   }
   .hero {
     gap: 15px;
@@ -71,7 +76,7 @@
   .header {
     height: 80px;
     margin: 0 20px;
-    gap: 20px;
+    gap: 12px;
   }
   .header-contact {
     margin-left: auto;
@@ -83,6 +88,11 @@
   }
   .logo {
     font-size: 34px;
+  }
+  .logo-name {
+    font-size: 20px;
+    margin-left: 12px;
+    letter-spacing: -0.4px;
   }
   .nav {
     display: none;
@@ -397,6 +407,11 @@
   }
   .contact-page {
     min-height: 80vh;
+  }
+}
+@media (max-width: 480px) {
+  .header-contact {
+    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {
