@@ -132,35 +132,21 @@
   justify-content: space-between;
   gap: 40px;
 }
-.monogram {
-  font-family: 'Manrope', sans-serif;
-  position: relative;
+.about-portrait {
   display: grid;
-  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  margin: 0;
+  flex-shrink: 0;
+}
+.about-portrait .portrait-avatar {
   width: 220px;
   height: 220px;
-  flex-shrink: 0;
-  background: #c4f36b;
-  color: #17200e;
-  font-size: 95px;
-  line-height: 1;
-  letter-spacing: -13px;
-  transform: rotate(-5deg);
-  border-radius: 50%;
-  animation: monogram-float 8s ease-in-out infinite;
 }
-.monogram > span {
-  display: inline;
-  position: absolute;
-  right: 48px;
-  top: 61px;
-}
-.monogram small {
-  letter-spacing: 2px;
-  font:
-    9px 'DM Sans',
-    sans-serif;
-  margin-top: 20px;
+.about-portrait figcaption {
+  font-size: 11px;
+  letter-spacing: 1.7px;
+  color: #9aad89;
 }
 .about-body {
   display: grid;

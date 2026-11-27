@@ -1,4 +1,5 @@
 import TagList from '../components/ui/TagList';
+import PortraitButton from '../components/ui/PortraitButton';
 import { skillGroups } from '../data/profile';
 import { Download } from 'lucide-react';
 import ContactBanner from '../components/sections/ContactBanner';
@@ -15,10 +16,10 @@ export default function AboutPage() {
             <br />
             <span className="serif">A curious spirit.</span>
           </h1>
-          <div className="monogram" aria-hidden="true">
-            rg<span>.</span>
-            <small>KELLER, TEXAS</small>
-          </div>
+          <figure className="about-portrait">
+            <PortraitButton variant="profile" />
+            <figcaption>KELLER, TEXAS</figcaption>
+          </figure>
         </div>
         <div className="about-body reveal">
           <p className="large-copy">

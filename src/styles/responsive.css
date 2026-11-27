@@ -303,21 +303,13 @@
     align-items: start;
     gap: 25px;
   }
-  .monogram {
-    width: 150px;
-    height: 150px;
-    font-size: 67px;
-    letter-spacing: -8px;
-    align-self: end;
-    margin-top: -10px;
+  .about-portrait {
+    align-self: center;
+    margin-top: 10px;
   }
-  .monogram > span {
-    right: 30px;
-    top: 38px;
-  }
-  .monogram small {
-    font-size: 7px;
-    margin-top: 12px;
+  .about-portrait .portrait-avatar {
+    width: 180px;
+    height: 180px;
   }
   .about-body {
     grid-template-columns: 1fr;

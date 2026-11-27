@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { StrictMode } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import Logo from './Logo';
+import AboutPage from '../../pages/AboutPage';
 
 // JSDOM does not implement the native dialog lifecycle or top-layer focus.
 // Browser checks cover the native Escape key and focus containment.
@@ -29,6 +30,28 @@ function renderLogo(showName = true) {
 }
 
 describe('portrait logo and full-image modal', () => {
+  it('opens and closes the same portrait modal from the About-page photo', async () => {
+    const user = userEvent.setup();
+    render(
+      <StrictMode>
+        <MemoryRouter>
+          <AboutPage />
+        </MemoryRouter>
+      </StrictMode>,
+    );
+    expect(screen.queryByText(/^rg$/i)).not.toBeInTheDocument();
+    const portrait = screen.getByRole('button', { name: 'View Ronnie Galindo’s full portrait' });
+    expect(portrait).toHaveClass('portrait-avatar');
+    await user.click(portrait);
+    const dialog = screen.getByRole('dialog', { name: 'Ronnie Galindo' });
+    expect(within(dialog).getByRole('img')).toHaveAttribute(
+      'src',
+      `${import.meta.env.BASE_URL}images/ronnie-office-portrait.png`,
+    );
+    await user.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(portrait).toHaveFocus();
+  });
   it('opens the full image and restores focus and scrolling after Cancel', async () => {
     const user = userEvent.setup();
     renderLogo();
