@@ -1,7 +1,9 @@
-name: Deploy portfolio to GitHub Pages
+name: Portfolio CI and GitHub Pages
 
 on:
   push:
+    branches: ['**']
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -9,12 +11,55 @@ permissions:
   contents: read
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: portfolio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  build:
+  checks:
+    name: Quality checks
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Check formatting
+        run: npm run format:check
+      - name: Check TypeScript
+        run: npm run typecheck
+      - name: Test browser and GitHub Pages modes with coverage
+        run: npm run test:ci
+      - name: Upload coverage report
+        if: ${{ always() && !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: coverage-report
+          path: coverage
+          retention-days: 14
+          if-no-files-found: ignore
+      - name: Verify default production build
+        run: npm run build
+      - name: Verify GitHub Pages production build
+        run: npm run build
+        env:
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_ROUTER_MODE: hash
+
+  build:
+    name: Package GitHub Pages
+    needs: checks
+    if: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: read
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -39,8 +84,11 @@ jobs:
           path: dist
 
   deploy:
+    name: Deploy GitHub Pages
     needs: build
+    if: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       pages: write
       id-token: write

@@ -6,3 +6,4 @@ tmp/
 outputs/
 resume-source.pdf
 *.tsbuildinfo
+coverage/
