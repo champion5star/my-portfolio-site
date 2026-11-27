@@ -9,14 +9,32 @@
 }
 .logo {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   font-family: 'Manrope', sans-serif;
   font-size: 38px;
   font-weight: 800;
   letter-spacing: -4px;
 }
-.logo > span:first-child {
-  color: var(--lime);
+.logo-avatar {
+  position: relative;
+  display: block;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #b4d18d;
+  background: #213027;
+  box-shadow: 0 0 0 4px #c4f36b0a;
+}
+.logo-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 54% 50%;
+  transform: scale(1.45);
+  transform-origin: 50% 0;
 }
 .logo-name {
   font-family: 'Manrope', sans-serif;
