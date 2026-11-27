@@ -174,11 +174,10 @@
     font-size: 8px;
     margin-top: 0;
   }
-  .tech-strip > div {
-    justify-content: start;
-    padding-left: 20px;
+  .tech-strip-item {
     gap: 24px;
-    font-size: 11px;
+    padding-right: 24px;
+    font-size: 13px;
   }
   .tech-strip {
     padding: 18px 0;

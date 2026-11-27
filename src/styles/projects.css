@@ -1,22 +1,99 @@
 .tech-strip {
+  position: relative;
   overflow: hidden;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding: 27px 0;
+  padding: 25px 0;
   color: #a2aa98;
 }
-.tech-strip > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 35px;
-  white-space: nowrap;
-  font-size: 13px;
-  letter-spacing: 2px;
+.tech-strip-viewport {
+  overflow: hidden;
+  margin-right: 66px;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 45px,
+    black calc(100% - 45px),
+    transparent
+  );
 }
-.tech-strip span {
+.tech-strip-track {
+  display: flex;
+  width: max-content;
+  animation: skills-flow linear infinite;
+}
+.tech-strip-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tech-strip-item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 32px;
+  padding-right: 32px;
+  white-space: nowrap;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.tech-strip-item > span {
   color: var(--lime);
   font-size: 20px;
+}
+.tech-strip[data-paused='true'] .tech-strip-track,
+.tech-strip-viewport:hover .tech-strip-track {
+  animation-play-state: paused;
+}
+.tech-strip-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: #bfcead;
+  background: #1c2417;
+  border: 1px solid #455335;
+  border-radius: 50%;
+}
+.tech-strip-toggle:hover {
+  color: var(--lime);
+  border-color: var(--lime);
+}
+@keyframes skills-flow {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tech-strip {
+    padding: 20px;
+  }
+  .tech-strip-viewport {
+    margin-right: 0;
+    mask-image: none;
+  }
+  .tech-strip-track {
+    display: block;
+    width: auto;
+    animation: none;
+  }
+  .tech-strip-group {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 14px;
+  }
+  .tech-strip-group[aria-hidden='true'],
+  .tech-strip-toggle {
+    display: none;
+  }
 }
 .section {
   padding-block: 100px;
