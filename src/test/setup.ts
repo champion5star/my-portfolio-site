@@ -14,6 +14,17 @@ vi.stubGlobal(
 );
 window.scrollTo = vi.fn();
 Element.prototype.scrollIntoView = vi.fn();
+// Keep motion deterministic in page tests; motion lifecycle tests override this.
+window.matchMedia = vi.fn().mockImplementation((media: string) => ({
+  matches: media === '(prefers-reduced-motion: reduce)',
+  media,
+  onchange: null,
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  addListener: vi.fn(),
+  removeListener: vi.fn(),
+  dispatchEvent: vi.fn(),
+}));
 
 afterEach(() => {
   cleanup();

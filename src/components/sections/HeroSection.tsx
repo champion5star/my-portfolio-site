@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
-import Artwork from '../artwork/Artwork';
+import AiGlobe from '../globe/AiGlobe';
 
 export default function HeroSection() {
   return (
@@ -34,11 +34,7 @@ export default function HeroSection() {
         </div>
       </div>
       <div className="hero-art-wrap">
-        <Artwork />
-        <div className="art-caption">
-          <span>THE INTERSECTION OF LOGIC & POSSIBILITY</span>
-          <span>© RG</span>
-        </div>
+        <AiGlobe />
       </div>
     </section>
   );
