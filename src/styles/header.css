@@ -25,13 +25,35 @@
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 50%;
-  border: 1px solid #b4d18d;
+  border: 1px solid var(--lime);
   background: #213027;
-  box-shadow: 0 0 0 4px #c4f36b0a;
+  box-shadow: 0 0 0 3px #c4f36b14;
+  animation: logo-select-pulse 2.8s ease-out infinite;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
 }
-.logo-avatar:hover {
+.logo-avatar:hover,
+.logo-avatar:focus-visible {
+  animation: none;
   border-color: var(--lime);
-  box-shadow: 0 0 0 4px #c4f36b1a;
+  box-shadow:
+    0 0 0 4px #c4f36b2b,
+    0 0 20px #c4f36b33;
+  transform: scale(1.04);
+}
+@keyframes logo-select-pulse {
+  0% {
+    box-shadow:
+      0 0 0 3px #c4f36b14,
+      0 0 0 3px #a7e85b70;
+  }
+  75%,
+  100% {
+    box-shadow:
+      0 0 0 3px #c4f36b14,
+      0 0 0 13px #a7e85b00;
+  }
 }
 .logo-avatar img {
   display: block;
