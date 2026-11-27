@@ -1,0 +1,14 @@
+.contact-banner {
+  border-top: 1px solid var(--line);
+  padding-block: 70px 85px;
+}
+.contact-banner > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.contact-banner h2 {
+  font-size: clamp(36px, 4.6vw, 62px);
+  margin-bottom: 0;
+}

@@ -1,0 +1,41 @@
+.approach {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  border-top: 1px solid var(--line);
+}
+.prose {
+  font-size: 17px;
+  line-height: 1.9;
+  max-width: 620px;
+}
+.muted {
+  color: var(--muted);
+}
+.approach .prose {
+  max-width: 440px;
+  margin-bottom: 30px;
+}
+.capability {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 25px;
+}
+.capability:first-child {
+  padding-top: 0;
+}
+.capability > svg {
+  color: var(--lime);
+  margin-top: 8px;
+}
+.capability h3 {
+  margin: 0 0 10px;
+}
+.capability p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0;
+  max-width: 340px;
+}

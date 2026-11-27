@@ -1,0 +1,63 @@
+@keyframes reveal-in {
+  from {
+    opacity: 0.2;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes sphere-breathe {
+  0%,
+  100% {
+    transform: translate(var(--mx), var(--my)) rotate(-22deg) rotateY(0);
+  }
+  50% {
+    transform: translate(var(--mx), var(--my)) rotate(-17deg) rotateY(35deg);
+  }
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotateY(65deg) rotate(395deg);
+  }
+}
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.55);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+@keyframes track-drift {
+  50% {
+    transform: translate(15px, -10px);
+  }
+}
+@keyframes scan {
+  from {
+    top: 10%;
+  }
+  to {
+    top: 95%;
+  }
+}
+@keyframes node-pulse {
+  50% {
+    box-shadow: 0 0 20px #c4f36b66;
+    background: #a4d76b;
+  }
+}
+@keyframes tile-glow {
+  50% {
+    opacity: 0.85;
+    transform: translateY(-5px);
+  }
+}
+@keyframes monogram-float {
+  50% {
+    transform: rotate(3deg) translateY(-5px);
+  }
+}
