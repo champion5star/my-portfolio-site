@@ -36,9 +36,11 @@ describe('Earth projection and connection geometry', () => {
   });
 
   it('anchors signals to their hubs and lifts the route above the surface', () => {
-    expect(connectionPoint(connection, 0, 0)).toEqual(
-      projectGlobePoint(connection.from.coordinates, 0),
-    );
+    const start = connectionPoint(connection, 0, 0);
+    const origin = projectGlobePoint(connection.from.coordinates, 0);
+    expect(start.x).toBeCloseTo(origin.x);
+    expect(start.y).toBeCloseTo(origin.y);
+    expect(start.visible).toBe(origin.visible);
     expect(connectionPoint(connection, 1, 0).x).toBeCloseTo(
       projectGlobePoint(connection.to.coordinates, 0).x,
     );

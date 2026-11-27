@@ -7,6 +7,23 @@
   padding: 20px 0 0;
   isolation: isolate;
 }
+.ai-globe-loading {
+  min-height: 590px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 35px;
+  color: #a3b594;
+  font-size: 14px;
+}
+.ai-globe-loading > div {
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  border: 1px solid #7bba9c55;
+  background: radial-gradient(circle at 35% 25%, #315443, #0d2426 65%, #0a1515);
+  box-shadow: 0 0 45px #5bbf8110;
+}
 .ai-globe-heading {
   display: flex;
   align-items: center;

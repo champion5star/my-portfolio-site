@@ -89,3 +89,17 @@ Project artwork is illustrative, generated directly in CSS. No repository screen
 The header, footer, logo, links, project cards, tags, contact form, experience entries, animated artwork, and home-page sections each have their own component. CSS files separate base rules, layout, artwork, pages, forms, animations, and responsive overrides; their import order preserves the existing cascade.
 
 Run `npm run format` to format source files and `npm run format:check` to check formatting. Run `npm run build` for TypeScript and production build validation.
+
+## Interactive AI globe
+
+The home-page globe uses geographic land outlines, an orthographic Earth projection, raised connection paths, traveling signals, and pulsing hubs. Visitors can drag or use arrow keys to rotate, select a hub, focus on a region, filter language/vision/automation connections, and pause or resume motion. The network is illustrative; it does not display live usage, client locations, or measured AI adoption.
+
+- UI and SVG rendering: `src/components/globe/`
+- Geographic projection and connection paths: `src/lib/globeGeometry.ts`
+- Frame scheduling, motion preferences, and visibility handling: `src/hooks/useGlobeMotion.ts`
+- Hubs, connections, regions, and capability descriptions: `src/data/aiNetwork.ts`
+- Styles: `src/styles/ai-globe.css`
+
+Motion stops when the globe is offscreen or the tab is hidden. Reduced-motion preferences disable automatic movement while preserving manual controls. Geometry, gestures, capability filters, regional exploration, pause/resume, and animation cleanup have automated tests in both routing modes.
+
+Map geometry is bundled locally from [world-atlas](https://github.com/topojson/world-atlas), using Natural Earth’s 110m land dataset; no map service, API key, or visitor-time data fetch is required. The world-atlas license is included in `public/world-map-license.txt`. Run `npm run globe:map` to regenerate the checked-in geometry with `scripts/generate-globe-map.mjs`.

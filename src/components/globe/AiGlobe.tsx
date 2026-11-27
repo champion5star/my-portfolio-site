@@ -138,7 +138,13 @@ export default function AiGlobe() {
           </button>
           <button
             aria-label={motion.paused ? 'Play globe animation' : 'Pause globe animation'}
-            onClick={() => motion.setPaused(!motion.paused)}
+            onClick={() => {
+              if (motion.paused) {
+                setHub(null);
+                setRegion('world');
+              }
+              motion.setPaused(!motion.paused);
+            }}
             disabled={motion.reducedMotion}
           >
             {motion.paused ? <Play size={15} /> : <Pause size={15} />}

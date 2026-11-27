@@ -14,7 +14,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:pages": "vitest run --mode pages-test",
-    "test:ci": "npm run test:coverage && npm run test:pages"
+    "test:ci": "npm run test:coverage && npm run test:pages",
+    "globe:map": "node scripts/generate-globe-map.mjs && prettier --write src/data/worldLand.json"
   },
   "dependencies": {
     "d3-geo": "3.1.2",

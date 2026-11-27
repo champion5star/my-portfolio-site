@@ -169,7 +169,12 @@ export default function GlobeScene({
             <circle r="10" className="ai-hub-pulse" />
             <circle r="4" className="ai-hub-core" />
             {(selected || hub.id === 'texas' || hub.id === 'london' || hub.id === 'singapore') && (
-              <text x="10" y="-11" className="ai-hub-label">
+              <text
+                x={point.x > 430 ? -10 : 10}
+                y="-11"
+                textAnchor={point.x > 430 ? 'end' : 'start'}
+                className="ai-hub-label"
+              >
                 {hub.name.toUpperCase()}
               </text>
             )}

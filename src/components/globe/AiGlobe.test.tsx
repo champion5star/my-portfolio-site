@@ -77,4 +77,35 @@ describe('interactive global AI illustration', () => {
     await user.click(screen.getByRole('button', { name: 'Play globe animation' }));
     expect(screen.getByRole('button', { name: 'Pause globe animation' })).toBeEnabled();
   });
+
+  it('lets visitors drag the Earth and releases capture when the gesture ends', () => {
+    const { container } = render(<AiGlobe />);
+    const scene = screen.getByRole('group', {
+      name: 'Interactive Earth showing illustrative AI connections',
+    });
+    const capture = vi.fn();
+    const release = vi.fn();
+    Object.defineProperties(scene, {
+      setPointerCapture: { value: capture },
+      hasPointerCapture: { value: () => true },
+      releasePointerCapture: { value: release },
+    });
+    const initial = container.querySelector('.ai-land')?.getAttribute('d');
+    const pointer = (type: string, clientX: number, button = 0) =>
+      fireEvent(scene, new MouseEvent(type, { bubbles: true, clientX, button }));
+    pointer('pointermove', 200);
+    expect(container.querySelector('.ai-land')?.getAttribute('d')).toBe(initial);
+    pointer('pointerdown', 100, 2);
+    expect(capture).not.toHaveBeenCalled();
+    pointer('pointerdown', 100);
+    pointer('pointermove', 250);
+    expect(capture).toHaveBeenCalled();
+    expect(container.querySelector('.ai-land')?.getAttribute('d')).not.toBe(initial);
+    pointer('pointerup', 250);
+    expect(release).toHaveBeenCalled();
+    const final = container.querySelector('.ai-land')?.getAttribute('d');
+    pointer('pointermove', 300);
+    pointer('pointerup', 300);
+    expect(container.querySelector('.ai-land')?.getAttribute('d')).toBe(final);
+  });
 });
