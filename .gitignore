@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.sites-local/
+*.tar.gz
+tmp/
+outputs/
+resume-source.pdf
+*.tsbuildinfo
