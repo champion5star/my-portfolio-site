@@ -1,0 +1,98 @@
+.art {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #1b2417;
+  height: 350px;
+  --mx: 0px;
+  --my: 0px;
+}
+.art-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#a7c7810b 1px, transparent 1px),
+    linear-gradient(90deg, #a7c7810b 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse, black 30%, transparent 80%);
+}
+.hero .art {
+  height: 550px;
+  background: radial-gradient(ellipse at 50% 48%, #33482455, transparent 65%);
+}
+.sphere {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: 320px;
+  height: 320px;
+  margin: -160px;
+  transform-style: preserve-3d;
+  transform: translate(var(--mx), var(--my)) rotate(-22deg);
+  animation: sphere-breathe 8s ease-in-out infinite;
+}
+.sphere i {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #b1e87088;
+  border-radius: 50%;
+  box-shadow: inset 0 0 20px #b1e87005;
+}
+.sphere:after {
+  content: '';
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: #bcf17a10;
+  filter: blur(30px);
+}
+.orbit {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  width: 440px;
+  height: 440px;
+  border: 1px solid #79985b40;
+  border-radius: 50%;
+  margin: -220px;
+  transform: rotateX(63deg) rotate(-25deg);
+}
+.orbit-two {
+  transform: rotateY(65deg) rotate(35deg);
+  border-style: dashed;
+  animation: orbit-spin 28s linear infinite;
+}
+.orb-label {
+  position: absolute;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #a9bd94;
+  background: #111311;
+  padding: 8px 10px;
+}
+.label-top {
+  top: 65px;
+  left: 30px;
+}
+.label-bottom {
+  bottom: 95px;
+  right: 10px;
+}
+.coord {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font: 10px monospace;
+  letter-spacing: 2px;
+  color: #6f835c;
+  white-space: nowrap;
+}
+.art-caption {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: 1.6px;
+  color: #7e8a71;
+  margin: 16px 12px 0;
+}

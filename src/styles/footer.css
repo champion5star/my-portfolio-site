@@ -1,0 +1,38 @@
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  padding-block: 32px;
+}
+.footer p {
+  font-size: 12px;
+  color: #858e7b;
+  margin-right: auto;
+}
+.footer > div {
+  display: flex;
+  gap: 8px;
+}
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+.icon-button:hover {
+  color: var(--lime);
+  background: #b9ed6c0a;
+}
+.copyright {
+  font-size: 11px;
+  color: #858e7b;
+}

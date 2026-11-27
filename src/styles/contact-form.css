@@ -1,0 +1,123 @@
+/* Contact form */
+.contact-form {
+  max-width: 850px;
+  border-top: 1px solid var(--line);
+  padding-top: 35px;
+  display: grid;
+  gap: 25px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.form-field label {
+  font-size: 16px;
+  color: #eaece5;
+}
+.form-field label span {
+  font-size: 14px;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  border: 1px solid #404a37;
+  border-radius: 5px;
+  background: #191e16;
+  color: #edf0e7;
+  padding: 16px 18px;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.6;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 170px;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #89947e;
+  opacity: 1;
+}
+.form-field input:hover,
+.form-field textarea:hover {
+  border-color: #718160;
+}
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+  border-color: var(--lime);
+  background: #1e2619;
+  box-shadow: 0 0 24px #c4f36b08;
+}
+.form-submit-row {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 5px;
+}
+.form-submit-row .button {
+  white-space: nowrap;
+  font-size: 16px;
+  min-width: 195px;
+}
+.form-submit-row .button:hover svg {
+  transform: translateY(-2px) rotate(-10deg);
+}
+.form-submit-row .button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+.form-note {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 460px;
+}
+.form-note a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: #c6d5b6;
+}
+.form-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+@media (max-width: 760px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .contact-form {
+    padding-top: 25px;
+    gap: 22px;
+  }
+  .form-submit-row {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .form-submit-row .button {
+    align-self: start;
+  }
+  .form-note {
+    max-width: 100%;
+  }
+}

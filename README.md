@@ -50,9 +50,23 @@ Clear those two variables before a normal root-path build. GitHub Pages serves t
 
 ## Content
 
-- Contact details and project data: `src/data.ts`
-- Pages and layout: `src/main.tsx`
-- Styles and animations: `src/styles.css`
+- Contact details and navigation: `src/data/site.ts`
+- Projects: `src/data/projects.ts`
+- Skills and professional experience: `src/data/profile.ts`, `src/data/experience.ts`
+- Route definitions: `src/routes/AppRoutes.tsx`
+- Pages: `src/pages/`
+- Shared layout, sections, and UI: `src/components/`
+- Route effects and project filtering: `src/hooks/`
+- Shared TypeScript models: `src/types/`
+- CSS entry point: `src/styles/index.css` (imports the focused stylesheets in cascade order)
 - Downloadable resume: `public/ronnie-galindo-resume.pdf`
 
 Project artwork is illustrative, generated directly in CSS. No repository screenshots or fabricated product demos are used. The contact form posts to FormSubmit, which delivers submissions to the configured recipient. Visitors complete the provider’s spam check and see delivery confirmation there. The recipient must activate the form once using the confirmation email triggered by the first submission. There are no email API credentials in the frontend. Header and footer contact actions route to this form. Google Fonts are optional and have local font fallbacks.
+
+## Source structure
+
+`main.tsx` only mounts React and loads CSS. `App.tsx` selects browser or hash routing, and `AppRoutes.tsx` maps URLs to page components within the shared `SiteLayout`. Each page composes reusable components and reads content from data modules. UI state and browser effects live in focused hooks or in the component that owns the interaction.
+
+The header, footer, logo, links, project cards, tags, contact form, experience entries, animated artwork, and home-page sections each have their own component. CSS files separate base rules, layout, artwork, pages, forms, animations, and responsive overrides; their import order preserves the existing cascade.
+
+Run `npm run format` to format source files and `npm run format:check` to check formatting. Run `npm run build` for TypeScript and production build validation.
