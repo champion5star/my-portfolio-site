@@ -1,0 +1,65 @@
+.portrait-modal {
+  width: min(1040px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid #526344;
+  border-radius: 12px;
+  background: #181e15;
+  color: #edf1e7;
+  box-shadow: 0 24px 100px #0009;
+  overflow: auto;
+}
+.portrait-modal::backdrop {
+  background: #030704d9;
+  backdrop-filter: blur(8px);
+}
+.portrait-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 22px;
+}
+.portrait-modal-header h2 {
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+.portrait-modal-cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 1px solid #62764d;
+  border-radius: 5px;
+  background: #26351c;
+  color: #d4f2b3;
+  font-size: 15px;
+}
+.portrait-modal-cancel:hover {
+  border-color: var(--lime);
+  background: #354c24;
+}
+.portrait-modal-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 116px);
+  object-fit: contain;
+  background: #0b100b;
+}
+@media (max-width: 480px) {
+  .portrait-modal-header {
+    padding: 12px;
+    gap: 12px;
+  }
+  .portrait-modal-header h2 {
+    font-size: 19px;
+  }
+}
