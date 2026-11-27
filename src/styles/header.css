@@ -16,6 +16,8 @@
   letter-spacing: -4px;
 }
 .logo-avatar {
+  padding: 0;
+  cursor: zoom-in;
   position: relative;
   display: block;
   width: 52px;
@@ -26,6 +28,10 @@
   border: 1px solid #b4d18d;
   background: #213027;
   box-shadow: 0 0 0 4px #c4f36b0a;
+}
+.logo-avatar:hover {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 4px #c4f36b1a;
 }
 .logo-avatar img {
   display: block;
