@@ -1,6 +1,8 @@
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
-import Artwork from '../artwork/Artwork';
+
+const AiGlobe = lazy(() => import('../globe/AiGlobe'));
 
 export default function HeroSection() {
   return (
@@ -34,11 +36,16 @@ export default function HeroSection() {
         </div>
       </div>
       <div className="hero-art-wrap">
-        <Artwork />
-        <div className="art-caption">
-          <span>THE INTERSECTION OF LOGIC & POSSIBILITY</span>
-          <span>© RG</span>
-        </div>
+        <Suspense
+          fallback={
+            <div className="ai-globe-loading" role="status">
+              <div aria-hidden="true" />
+              <span>Connecting ideas around the world…</span>
+            </div>
+          }
+        >
+          <AiGlobe />
+        </Suspense>
       </div>
     </section>
   );

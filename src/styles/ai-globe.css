@@ -1,0 +1,433 @@
+.ai-globe {
+  --ai-language: #c4f36b;
+  --ai-vision: #7ce4de;
+  --ai-automation: #e7b983;
+  position: relative;
+  width: 100%;
+  padding: 20px 0 0;
+  isolation: isolate;
+}
+.ai-globe-loading {
+  min-height: 590px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 35px;
+  color: #a3b594;
+  font-size: 14px;
+}
+.ai-globe-loading > div {
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  border: 1px solid #7bba9c55;
+  background: radial-gradient(circle at 35% 25%, #315443, #0d2426 65%, #0a1515);
+  box-shadow: 0 0 45px #5bbf8110;
+}
+.ai-globe-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-inline: 12px;
+  color: #b9c8aa;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+}
+.ai-globe-heading > span:first-child {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.ai-globe-heading svg {
+  color: var(--lime);
+}
+.ai-globe-coordinate {
+  color: #72866e;
+  font: 10px monospace;
+  white-space: nowrap;
+}
+.ai-globe-visual {
+  position: relative;
+  background: radial-gradient(ellipse at 50% 48%, #2d58421c, transparent 70%);
+}
+.ai-globe-scene {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+.ai-globe-scene:active {
+  cursor: grabbing;
+}
+.ai-globe-scene:focus-visible {
+  outline: 1px solid #b2d386;
+  outline-offset: -15px;
+  border-radius: 50%;
+}
+.ai-orbit-guide {
+  fill: none;
+  stroke: #779778;
+  stroke-opacity: 0.22;
+  stroke-width: 0.7;
+  stroke-dasharray: 2 7;
+}
+.ai-orbit-secondary {
+  stroke-opacity: 0.1;
+}
+.ai-atmosphere {
+  fill: none;
+  stroke: #8cd6c3;
+  stroke-opacity: 0.5;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px #8cd6c355);
+}
+.ai-graticule {
+  fill: none;
+  stroke: #8cae97;
+  stroke-opacity: 0.12;
+  stroke-width: 0.65;
+}
+.ai-land {
+  fill: #526d43;
+  stroke: #a6c18b;
+  stroke-width: 0.55;
+  stroke-opacity: 0.5;
+}
+.ai-route {
+  color: var(--ai-language);
+  transition: opacity 0.3s;
+}
+.ai-vision {
+  color: var(--ai-vision);
+}
+.ai-automation {
+  color: var(--ai-automation);
+}
+.ai-route-base {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.85;
+  opacity: 0.28;
+}
+.ai-route-flow {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-dasharray: 5 24;
+  opacity: 0.8;
+  animation: ai-data-flow 3s linear infinite;
+}
+.ai-packet {
+  fill: currentColor;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+.ai-hub {
+  cursor: pointer;
+  outline: none;
+}
+.ai-hub-hit {
+  fill: transparent;
+}
+.ai-hub-pulse {
+  fill: none;
+  stroke: #d6ff9f;
+  stroke-width: 0.8;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ai-hub-pulse 3s ease-out infinite;
+}
+.ai-hub:nth-of-type(3n) .ai-hub-pulse {
+  animation-delay: -1s;
+}
+.ai-hub:nth-of-type(2n) .ai-hub-pulse {
+  animation-delay: -2s;
+}
+.ai-hub-core {
+  fill: #e3ffc4;
+  stroke: #162c20;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 4px #c4f36b);
+}
+.ai-hub:hover .ai-hub-core,
+.ai-hub:focus-visible .ai-hub-core,
+.ai-hub.is-selected .ai-hub-core {
+  fill: white;
+  stroke: var(--lime);
+  stroke-width: 3;
+}
+.ai-hub-label {
+  font:
+    9px 'DM Sans',
+    sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  fill: #e6f8d6;
+  paint-order: stroke;
+  stroke: #0d211b;
+  stroke-width: 3px;
+  pointer-events: none;
+}
+.ai-floating-label {
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9px;
+  letter-spacing: 1.7px;
+  color: #a7bc97;
+  background: #111b13dd;
+  padding: 7px 9px;
+  border: 1px solid #7d9c6229;
+  border-radius: 3px;
+}
+.ai-floating-label i {
+  width: 4px;
+  height: 4px;
+  background: var(--ai-language);
+  box-shadow: 0 0 8px var(--ai-language);
+  border-radius: 50%;
+}
+.ai-floating-language {
+  top: 12%;
+  left: 3%;
+}
+.ai-floating-vision {
+  right: 0;
+  top: 42%;
+  color: #9bc9c5;
+}
+.ai-floating-vision i {
+  background: var(--ai-vision);
+  box-shadow: 0 0 8px var(--ai-vision);
+}
+.ai-floating-automation {
+  bottom: 18%;
+  left: 0;
+  color: #c9b392;
+}
+.ai-floating-automation i {
+  background: var(--ai-automation);
+  box-shadow: 0 0 8px var(--ai-automation);
+}
+.ai-globe-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  color: #d5e3c8;
+  pointer-events: none;
+}
+.ai-globe-caption span {
+  color: #82977b;
+}
+.ai-globe-layers {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 22px;
+}
+.ai-globe-layers button {
+  font-size: 13px;
+  border: 1px solid #3e4b35;
+  background: #1a2115;
+  color: #a5b397;
+  padding: 9px 14px;
+  border-radius: 4px;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.ai-globe-layers button:hover {
+  border-color: #90b565;
+  color: #e5efdb;
+}
+.ai-globe-layers button.is-active {
+  color: #d7f8b3;
+  border-color: #8aaa60;
+  background: #c4f36b13;
+}
+.ai-globe-description {
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  color: #9daf91;
+  min-height: 45px;
+  max-width: 400px;
+  margin: 15px auto 13px;
+  padding-inline: 8px;
+}
+.ai-globe-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  border-top: 1px solid #35402c;
+  padding: 13px 0;
+  margin-inline: 12px;
+}
+.ai-region-select {
+  position: relative;
+}
+.ai-region-select select {
+  appearance: none;
+  color: #a9baa0;
+  background: #111311;
+  border: 0;
+  font-size: 13px;
+  padding: 8px 30px 8px 0;
+  cursor: pointer;
+  border-radius: 0;
+}
+.ai-region-select > svg {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #8ea47a;
+}
+.ai-motion-controls {
+  display: flex;
+  gap: 6px;
+}
+.ai-motion-controls button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: #bacda6;
+  border: 1px solid #3b4a30;
+  background: #1b2416;
+  border-radius: 50%;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+.ai-motion-controls button:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+.ai-motion-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.ai-globe-footnote {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-inline: 12px;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+  line-height: 1.6;
+  color: #74876a;
+}
+.ai-globe.is-paused *,
+.ai-globe.is-paused *::before {
+  animation-play-state: paused !important;
+}
+@keyframes ai-data-flow {
+  to {
+    stroke-dashoffset: -116;
+  }
+}
+@keyframes ai-hub-pulse {
+  0% {
+    transform: scale(0.45);
+    opacity: 0.9;
+  }
+  85%,
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+@media (min-width: 761px) {
+  .hero {
+    grid-template-columns: 1fr 1.08fr;
+    gap: 30px;
+  }
+}
+@media (max-width: 1100px) and (min-width: 761px) {
+  .hero h1 {
+    font-size: clamp(59px, 6.4vw, 76px);
+    letter-spacing: -4px;
+  }
+  .ai-globe-heading {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .ai-globe-coordinate {
+    display: none;
+  }
+  .ai-globe-layers button {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .ai-globe-footnote {
+    letter-spacing: 0.7px;
+    font-size: 7px;
+  }
+}
+@media (max-width: 760px) {
+  .ai-globe {
+    max-width: 590px;
+    margin: 30px auto 10px;
+    padding-top: 10px;
+  }
+  .ai-globe-heading {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+    padding-inline: 0;
+  }
+  .ai-globe-coordinate {
+    font-size: 9px;
+  }
+  .ai-floating-label {
+    font-size: 7px;
+    letter-spacing: 1px;
+    padding: 5px 6px;
+    gap: 5px;
+  }
+  .ai-globe-caption {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+  }
+  .ai-globe-layers {
+    gap: 5px;
+    margin-top: 20px;
+  }
+  .ai-globe-layers button {
+    font-size: 12px;
+    padding: 9px 13px;
+  }
+  .ai-globe-description {
+    font-size: 13px;
+    max-width: 340px;
+  }
+  .ai-globe-controls {
+    margin-inline: 0;
+  }
+  .ai-globe-footnote {
+    padding-inline: 0;
+    font-size: 7px;
+    letter-spacing: 0.9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ai-globe * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .ai-hub-pulse {
+    opacity: 0.4;
+  }
+}

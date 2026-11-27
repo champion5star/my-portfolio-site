@@ -4,6 +4,14 @@ import { describe, expect, it } from 'vitest';
 import { renderRoute } from '../test/renderRoute';
 
 describe('portfolio routes', () => {
+  it('loads the interactive Earth on the home page', async () => {
+    renderRoute('/');
+    expect(
+      await screen.findByRole('group', {
+        name: 'Interactive Earth showing illustrative AI connections',
+      }),
+    ).toBeInTheDocument();
+  });
   it.each([
     ['/', /Human ideas\. Intelligent execution\./, 'AI & Full Stack Engineer'],
     ['/about', /A builder’s mind\. A curious spirit\./, 'About'],
